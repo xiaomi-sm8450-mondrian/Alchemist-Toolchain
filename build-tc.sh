@@ -152,7 +152,11 @@ tg_post_msg "<b>$LLVM_NAME: Building LLVM. . .</b>"
 	--targets AArch64 ARM X86 \
 	--full-toolchain \
 	--projects clang lld polly compiler-rt \
-	--shallow-clone
+	--shallow-clone \
+	--pgo llvm kernel-defconfig \
+	--bolt \
+	--build-type Release \
+	--build-targets all
 }
 
 parse_parameters "$@"
