@@ -53,7 +53,7 @@ set -eu
 function parse_parameters() {
     while (($#)); do
         case $1 in
-            all | binutils | deps | kernel | llvm) action=$1 ;;
+            all | binutils | kernel | llvm) action=$1 ;;
             *) exit 33 ;;
         esac
         shift
@@ -61,7 +61,6 @@ function parse_parameters() {
 }
 
 function do_all() {
-    do_deps
     do_llvm
     do_binutils
     do_kernel
@@ -74,34 +73,6 @@ tg_post_msg "<b>$LLVM_NAME: Building Binutils. . .</b>"
         --install-folder "$install" \
         --show-build-commands \
         --targets arm aarch64 x86_64
-}
-
-function do_deps() {
-
-    # Refresh mirrorlist to avoid dead mirrors
-    sudo apt-get update -y
-
-    sudo apt-get install -y --no-install-recommends \
-        bc \
-        bison \
-        ca-certificates \
-        clang \
-        cmake \
-        curl \
-        file \
-        flex \
-        gcc \
-        g++ \
-        git \
-        libelf-dev \
-        libssl-dev \
-        lld \
-        make \
-        ninja-build \
-        python3 \
-        texinfo \
-        xz-utils \
-        zlib1g-dev
 }
 
 function do_kernel() {
